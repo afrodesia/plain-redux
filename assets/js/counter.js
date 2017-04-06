@@ -9,6 +9,9 @@ function counter(currentState, action){
 			nextState.count = currentState.count + 1
 			return nextState
 			break;
+		case 'MINUS':
+			nextState.count = currentState.count - 1
+			return nextState
 		default:
 			console.log('In Default')
 			return currentState
@@ -32,7 +35,10 @@ document.getElementById('add')
 	.addEventListener('click', function(){
 	store.dispatch({ type: 'ADD'})
 })
-
+document.getElementById('minus')
+	.addEventListener('click', function(){
+	store.dispatch({ type: 'MINUS'})
+})
 
 
 
