@@ -1,3 +1,12 @@
 body{
 	background:#fff;
+	padding:0px;
+	margin:0px;
 }
+.container{
+	max-width:1280px;
+	margin:0px auto;
+}
+
+@import 'nav/nav';
+@import 'form-elements/index';

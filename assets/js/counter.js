@@ -1,16 +1,20 @@
 // Reducers
 
-function counter(currentState, action){
+function counter(state, action){
+
+	if(typeof state === 'undefined'){
+		return { count: 0 }
+	}
 	var nextState = {
-		count: currentState.count
+		count: state.count
 	}
 	switch(action.type){
 		case 'ADD':
-			nextState.count = currentState.count + 1
+			nextState.count = state.count + 1
 			return nextState
 			break;
 		case 'MINUS':
-			nextState.count = currentState.count - 1
+			nextState.count = state.count - 1
 			return nextState
 			break;
 		case 'RESET':
@@ -18,11 +22,13 @@ function counter(currentState, action){
 			return nextState		
 		default:
 			console.log('In Default')
-			return currentState
+			return state
 	}
 }
+// STORE
+
 var state = { count: 0 }
-var store = Redux.createStore(counter, state)
+var store = Redux.createStore(counter)
 var counterEl = document.getElementById('counter')
 console.log(store)
 
@@ -32,9 +38,13 @@ function render(){
 	var state = store.getState()
 	counterEl.innerHTML = state.count.toString()
 }
+
+render()
 store.subscribe(render)
 
-// Actions
+// ACTIONS
+
+
 document.getElementById('add')
 	.addEventListener('click', function(){
 	store.dispatch({ type: 'ADD'})
