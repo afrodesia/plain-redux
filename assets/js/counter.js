@@ -44,7 +44,8 @@ function todoReducer(state, action){
 			break;
 		case 'DELETEALL':
 			nextState.todos = []
-			return nextState		
+			return nextState
+			break;		
 		default:
 			console.log('In Default')
 			return state
@@ -53,18 +54,31 @@ function todoReducer(state, action){
 }
 
 
-
-
-var state = { count: 0 }
-var store = Redux.createStore(counter)
+// var state = { count: 0 }
+var store = Redux.createStore(todoReducer)
 var counterEl = document.getElementById('counterReducer')
+var todosInput = document.getElementById('todos')
+var todosList = document.getElementById('todosList')
+
 console.log(store)
 
 function render(){
-	console.log('In Render')
+
 	console.log(store.getState())
 	var state = store.getState()
-	counterEl.innerHTML = state.count.toString()
+
+	renderList(state)
+	// counterEl.innerHTML = state.count.toString()
+}
+function renderList(state){
+	todosList.innerHTML = '';
+	for (var i = 0; i < state.todos.length; i++) {
+		// var element = state.todos[i]
+		var li = document.createElement('li')
+		var todo = state.todos;
+		li.innerHTML = todo.toString()
+		todosList.appendChild(li)
+	}
 }
 
 render()
@@ -86,10 +100,9 @@ document.getElementById('reset')
 	store.dispatch({ type: 'RESET'})
 })
 
-
 document.getElementById('new')
 	.addEventListener('click', function(){
-	store.dispatch({ type: 'NEW', payload: })
+	store.dispatch({ type: 'NEW', payload: todosInput.value })
 })
 document.getElementById('delete')
 	.addEventListener('click', function(){
